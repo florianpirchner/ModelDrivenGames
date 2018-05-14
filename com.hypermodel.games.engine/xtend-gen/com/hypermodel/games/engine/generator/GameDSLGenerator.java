@@ -49,13 +49,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.launching.JavaRuntime;
-import org.eclipse.jdt.launching.environments.IExecutionEnvironment;
-import org.eclipse.jdt.launching.environments.IExecutionEnvironmentsManager;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.common.types.JvmDeclaredType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
@@ -543,63 +537,14 @@ public class GameDSLGenerator extends ExtendedJvmModelGenerator {
   }
   
   protected void createJDTProject(final IProject project, final GameProperties.ProjectType pType) {
-    try {
-      ArrayList<IClasspathEntry> entries = CollectionLiterals.<IClasspathEntry>newArrayList();
-      IJavaProject javaProject = JavaCore.create(project);
-      IFolder src = project.getFolder("src");
-      src.create(true, true, this.monitor);
-      IPackageFragmentRoot packageRoot = javaProject.getPackageFragmentRoot(src);
-      IClasspathEntry srcEntry = JavaCore.newSourceEntry(packageRoot.getPath(), null, null, null);
-      entries.add(srcEntry);
-      boolean _equals = Objects.equal(pType, GameProperties.ProjectType.android);
-      if (_equals) {
-        IFolder gen = project.getFolder("gen");
-        gen.create(true, true, this.monitor);
-        IPackageFragmentRoot packageRoot2 = javaProject.getPackageFragmentRoot(gen);
-        IClasspathEntry genEntry = JavaCore.newSourceEntry(packageRoot2.getPath(), null, null, null);
-        entries.add(genEntry);
-      }
-      IExecutionEnvironmentsManager executionEnvironmentsManager = JavaRuntime.getExecutionEnvironmentsManager();
-      IExecutionEnvironment[] executionEnvironments = executionEnvironmentsManager.getExecutionEnvironments();
-      for (final IExecutionEnvironment iExecutionEnvironment : executionEnvironments) {
-        boolean _equals_1 = "JavaSE-1.6".equals(iExecutionEnvironment.getId());
-        if (_equals_1) {
-          entries.add(JavaCore.newContainerEntry(JavaRuntime.newJREContainerPath(iExecutionEnvironment)));
-        }
-      }
-      Path _path = new Path("org.eclipse.buildship.core.gradleclasspathcontainer");
-      IClasspathEntry gradleEntry = JavaCore.newContainerEntry(_path, true);
-      entries.add(gradleEntry);
-      boolean _equals_2 = Objects.equal(pType, GameProperties.ProjectType.android);
-      if (_equals_2) {
-        Path _path_1 = new Path("com.android.ide.eclipse.adt.ANDROID_FRAMEWORK");
-        IClasspathEntry android1 = JavaCore.newContainerEntry(_path_1, true);
-        entries.add(android1);
-        Path _path_2 = new Path("com.android.ide.eclipse.adt.LIBRARIES");
-        IClasspathEntry android2 = JavaCore.newContainerEntry(_path_2, true);
-        entries.add(android2);
-        Path _path_3 = new Path("com.android.ide.eclipse.adt.DEPENDENCIES");
-        IClasspathEntry android3 = JavaCore.newContainerEntry(_path_3, true);
-        entries.add(android3);
-      }
-      final ArrayList<IClasspathEntry> _converted_entries = (ArrayList<IClasspathEntry>)entries;
-      javaProject.setRawClasspath(((IClasspathEntry[])Conversions.unwrapArray(_converted_entries, IClasspathEntry.class)), null);
-      IFolder binFolder = project.getFolder("bin");
-      binFolder.create(true, true, this.monitor);
-      boolean _equals_3 = Objects.equal(pType, GameProperties.ProjectType.android);
-      if (_equals_3) {
-        IFolder classesFolder = binFolder.getFolder("classes");
-        classesFolder.create(true, true, this.monitor);
-        javaProject.setOutputLocation(classesFolder.getFullPath(), null);
-      } else {
-        javaProject.setOutputLocation(binFolder.getFullPath(), null);
-      }
-      IFolder settings = project.getFolder(".settings");
-      IFile prefs = settings.getFile("org.eclipse.jdt.core.prefs");
-      prefs.create(this.buildJDT(), true, this.monitor);
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field JavaRuntime is undefined"
+      + "\nThe method or field JavaRuntime is undefined"
+      + "\nAccess restriction: The type IClasspathEntry is not accessible due to restriction on required project com.hypermodel.games.engine"
+      + "\ngetExecutionEnvironmentsManager cannot be resolved"
+      + "\ngetExecutionEnvironments cannot be resolved"
+      + "\ngetId cannot be resolved"
+      + "\nnewJREContainerPath cannot be resolved");
   }
   
   public ByteArrayInputStream buildGradleWrapperProps() {
